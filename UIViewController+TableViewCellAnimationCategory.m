@@ -1,12 +1,11 @@
 //
-//  UIViewController+TableViewCellAnimationCategories.m
-//  JinJiangDuCheng
+//  UIViewController+TableViewCellAnimationCategory.m
 //
-//  Created by Perry on 15/4/27.
+//  Created by MmoaaY on 15/4/27.
 //  Copyright (c) 2015年 SmartJ. All rights reserved.
 //
 
-#import "UIViewController+TableViewCellAnimationCategories.h"
+#import "UIViewController+TableViewCellAnimationCategory.h"
 #import <objc/runtime.h>
 static const void *curMaxAnimatedRowKey = &curMaxAnimatedRowKey;
 
@@ -16,7 +15,7 @@ static const void *curMaxAnimatedSectionKey = &curMaxAnimatedSectionKey;
 
 
 
-@implementation UIViewController (TableViewCellAnimationCategories)
+@implementation UIViewController (TableViewCellAnimationCategory)
 
 @dynamic curMaxAnimatedRow;
 @dynamic needTableViewCellAnimation;
