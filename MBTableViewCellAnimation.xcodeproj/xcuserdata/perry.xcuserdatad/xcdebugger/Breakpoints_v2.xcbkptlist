@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MBTableViewCellAnimation/MBTableViewCellAnimation/UIViewController+TableViewCellAnimationCategory.m"
-            timestampString = "456717277.692605"
+            timestampString = "457595590.674838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "-reloadAnimation"
             landmarkType = "5">
          </BreakpointContent>

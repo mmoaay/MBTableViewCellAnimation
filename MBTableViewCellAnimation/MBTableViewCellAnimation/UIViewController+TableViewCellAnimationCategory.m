@@ -11,13 +11,16 @@ static const void *curMaxAnimatedRowKey = &curMaxAnimatedRowKey;
 
 static const void *needTableViewCellAnimationKey = &needTableViewCellAnimationKey;
 
-static const void *curMaxAnimatedSectionKey = &curMaxAnimatedSectionKey;
+static const void *curMaxAnimatedHeaderKey = &curMaxAnimatedHeaderKey;
 
+static const void *curMaxAnimatedFooterKey = &curMaxAnimatedFooterKey;
 
 
 @implementation UIViewController (TableViewCellAnimationCategory)
 
 @dynamic curMaxAnimatedRow;
+@dynamic curMaxAnimatedHeader;
+@dynamic curMaxAnimatedFooter;
 @dynamic needTableViewCellAnimation;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -46,8 +49,8 @@ static const void *curMaxAnimatedSectionKey = &curMaxAnimatedSectionKey;
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     if ([self.needTableViewCellAnimation boolValue]){
-        if (section+1 > [self.curMaxAnimatedSection integerValue]){
-            self.curMaxAnimatedSection = [NSNumber numberWithInteger:section+1];
+        if (section+1 > [self.curMaxAnimatedHeader integerValue]){
+            self.curMaxAnimatedHeader = [NSNumber numberWithInteger:section+1];
             view.layer.transform = CATransform3DMakeScale(1.03, 1.03, 1.03);
             view.layer.opacity = 0.25f;
             
@@ -59,12 +62,35 @@ static const void *curMaxAnimatedSectionKey = &curMaxAnimatedSectionKey;
     }
 }
 
-- (NSNumber *)curMaxAnimatedSection {
-    return objc_getAssociatedObject(self, curMaxAnimatedSectionKey);
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section{
+    if ([self.needTableViewCellAnimation boolValue]){
+        if (section+1 > [self.curMaxAnimatedFooter integerValue]){
+            self.curMaxAnimatedFooter = [NSNumber numberWithInteger:section+1];
+            view.layer.transform = CATransform3DMakeScale(1.03, 1.03, 1.03);
+            view.layer.opacity = 0.25f;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+                view.layer.opacity = 1.0f;
+            }];
+        }
+    }
 }
 
-- (void)setCurMaxAnimatedSection:(NSNumber *)curMaxAnimatedSection{
-    objc_setAssociatedObject(self, curMaxAnimatedSectionKey, curMaxAnimatedSection, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (NSNumber *)curMaxAnimatedFooter {
+    return objc_getAssociatedObject(self, curMaxAnimatedFooterKey);
+}
+
+- (void)setCurMaxAnimatedFooter:(NSNumber *)curMaxAnimatedFooter {
+    objc_setAssociatedObject(self, curMaxAnimatedFooterKey, curMaxAnimatedFooter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSNumber *)curMaxAnimatedHeader {
+    return objc_getAssociatedObject(self, curMaxAnimatedHeaderKey);
+}
+
+- (void)setCurMaxAnimatedHeader:(NSNumber *)curMaxAnimatedHeader{
+    objc_setAssociatedObject(self, curMaxAnimatedHeaderKey, curMaxAnimatedHeader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSMutableArray *)curMaxAnimatedRow {
@@ -84,7 +110,8 @@ static const void *curMaxAnimatedSectionKey = &curMaxAnimatedSectionKey;
 }
 
 -(void)reloadAnimation{
-    self.curMaxAnimatedSection = @0;
+    self.curMaxAnimatedHeader = @0;
+    self.curMaxAnimatedFooter = @0;
     self.curMaxAnimatedRow = [[NSMutableArray alloc] init];
     self.needTableViewCellAnimation = [NSNumber numberWithBool:YES];
 }

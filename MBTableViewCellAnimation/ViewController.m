@@ -21,6 +21,11 @@
     [self reloadAnimation];
 }
 
+- (IBAction)reloadPressed:(id)sender {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self reloadAnimation];
+}
+
 #pragma mark- tableview datasource delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 10;
@@ -30,13 +35,20 @@
     return 10;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [NSString stringWithFormat:@"Header %ld", section];
+}
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    return [NSString stringWithFormat:@"Footer %ld", section];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
     
     if (!cell) {
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
-        cell.textLabel.text = @"MBTableViewCellAnimation";
+        cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row];
         cell.detailTextLabel.text = @"注意～下方高能～";
     }
     

@@ -9,7 +9,8 @@
 
 @interface UIViewController (TableViewCellAnimationCategory)
 
-@property (nonatomic, strong) NSNumber *curMaxAnimatedSection;
+@property (nonatomic, strong) NSNumber *curMaxAnimatedHeader;
+@property (nonatomic, strong) NSNumber *curMaxAnimatedFooter;
 
 @property (nonatomic, strong) NSMutableArray *curMaxAnimatedRow;
 @property (nonatomic, strong) NSNumber *needTableViewCellAnimation;
